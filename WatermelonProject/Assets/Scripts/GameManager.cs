@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Util;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager>
+{
+	public GameState CurrentGameState { get; private set; }
 
-	// Use this for initialization
-	void Start () {
-	
+	protected override void Awake () {
+		base.Awake();
+		//Directly jump to the
+		CurrentGameState=GameState.Ingame;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public enum GameState
+	{
+		TitleScreen,
+		Ingame,
+		PlayerDead
 	}
 }
