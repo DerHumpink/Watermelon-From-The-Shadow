@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
 	public void Die()
 	{
 		CurrentGameState=GameState.PlayerDead;
-		//AudioManager.Instance.
+		AudioManager.Instance.Die();
 	}
 
 	public void SetPlayerSafe(bool safe) {
@@ -37,8 +37,9 @@ public class GameManager : Singleton<GameManager>
 
 	void Update() {
 
-		if (CurrentGameState == GameState.PlayerDead && Input.GetButtonDown ("fire1")) {
+		if (CurrentGameState == GameState.PlayerDead && Input.GetKeyDown(KeyCode.R)) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			CurrentGameState=GameState.Ingame;
 		}
 	}
 }
