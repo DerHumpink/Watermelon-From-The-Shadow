@@ -43,7 +43,7 @@ namespace LOS.Editor {
 
 			EditorGUILayout.Space();
 			EditorGUILayout.PropertyField(_obstacleLayer);
-			EditorGUILayout.Slider(_degreeStep, 0.1f, 2f);
+			EditorGUILayout.Slider(_degreeStep, 0.001f, 2f);
 //			EditorGUILayout.PropertyField(_degreeStep);
 			EditorGUILayout.PropertyField(_coneAngle);
 			if (_coneAngle.floatValue != 0) {

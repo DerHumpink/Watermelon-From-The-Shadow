@@ -1,15 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
+using Util;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : Singleton<GameManager>
+{
+	bool playerIsSafe = false;
 
-	// Use this for initialization
-	void Start () {
-	
+	public GameState CurrentGameState { get; private set; }
+
+	protected override void Awake () {
+		base.Awake();
+		//Directly jump to the
+		CurrentGameState=GameState.Ingame;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public enum GameState
+	{
+		TitleScreen,
+		Ingame,
+		PlayerDead
+	}
+
+	public void Win() {
+		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCountInBuildSettings);
+	}
+
+	public void SetPlayerSafe(bool safe) {
+		playerIsSafe = safe;
 	}
 }
