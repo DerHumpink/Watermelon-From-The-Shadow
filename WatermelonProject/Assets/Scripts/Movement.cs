@@ -31,18 +31,28 @@ public class Movement : Util.Singleton<Movement> {
 		if (axis.y > MIN_AXIS && lastAxis.y <= MIN_AXIS && !jumping)
 		{
 			vel.y = jumpSpeed.y;
-			vel.x = (lookingRight ? 1f : -1f) * jumpSpeed.x;
+			//vel.x = (lookingRight ? 1f : -1f) * jumpSpeed.x;
 
 			jumping = true;
 		}
 
-
-		if (Mathf.Abs (axis.x) > 0.1f)
+		if (!jumping||vel.x<2)
 		{
-			vel.x = speed * axis.x;
-		}
-		else {
-			vel.x = 0f;
+			if (Mathf.Abs(axis.x) > 0.1f)
+			{
+				if (Mathf.Sign(axis.x) != Mathf.Sign(vel.x))
+				{
+					vel.x = speed * axis.x*2.5f;
+				}
+				else
+				{
+					vel.x = speed * axis.x;
+				}
+			}
+			else
+			{
+				vel.x = 0f;
+			}
 		}
 
 		rb.velocity = vel;

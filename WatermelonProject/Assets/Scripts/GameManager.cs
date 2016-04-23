@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections;
+﻿using UnityEngine.SceneManagement;
 using Util;
 
 public class GameManager : Singleton<GameManager>
@@ -23,7 +21,7 @@ public class GameManager : Singleton<GameManager>
 	}
 
 	public void Win() {
-		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCountInBuildSettings);
+		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCount);
 	}
 
 	public void SetPlayerSafe(bool safe) {
