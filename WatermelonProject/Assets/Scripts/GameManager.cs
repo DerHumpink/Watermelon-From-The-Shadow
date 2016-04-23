@@ -23,7 +23,7 @@ public class GameManager : Singleton<GameManager>
 	}
 
 	public void Win() {
-		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCount);
+		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCountInBuildSettings);
 	}
 
 	public void SetPlayerSafe(bool safe) {

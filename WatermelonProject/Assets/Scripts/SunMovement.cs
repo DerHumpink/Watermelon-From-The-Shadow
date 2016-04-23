@@ -49,12 +49,13 @@ public class SunMovement : MonoBehaviour {
 		Vector3 aux = transform.position;
 		float movementWidth = endPoint.x - startPoint.x;
 		float xFactor = (currentWantedPosition.x - startPoint.x) / movementWidth;
-		aux.x = Mathf.Lerp(startPoint.x, endPoint.x, Easing.Quadratic.InOut(xFactor)); // Easing.Quadratic.InOut
-		aux.y = Mathf.Lerp(startPoint.y, endPoint.y, Easing.Quadratic.InOut(xFactor)) + // Easing.Quadratic.InOut
-			Mathf.Lerp(curveHeight, 0f, Easing.Quadratic.In(Mathf.Abs((xFactor - 0.5f)*2f))); // Easing.Quadratic.In
+		aux.x = Mathf.Lerp(startPoint.x, endPoint.x, Easing.Linear(xFactor)); // Easing.Quadratic.InOut
+		aux.y = Mathf.Lerp(startPoint.y, endPoint.y, Easing.Linear(xFactor)) + // Easing.Quadratic.InOut
+			Mathf.Lerp(curveHeight, 0f, Easing.Linear(Mathf.Abs((xFactor - 0.5f)*2f))); // Easing.Quadratic.In
 
-		float angle = Mathf.Lerp (maxLightAngle, minLightAngle, xFactor);
-		ShadowController.Instance.SetSunDirection (angle);
+		//float angle = Mathf.Lerp (maxLightAngle, minLightAngle, xFactor);
+		//ShadowController.Instance.SetSunDirection (angle);
+		ShadowController.Instance.SetSunPosition(aux);
 
 		transform.position = aux;
 		lastPlayerPosition = player.position;

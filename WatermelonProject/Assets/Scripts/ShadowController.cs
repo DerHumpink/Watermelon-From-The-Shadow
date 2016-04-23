@@ -13,4 +13,9 @@ public class ShadowController : Singleton<ShadowController>
 		Debug.Log(direction);
 		_sunBase.position = transform.position+q*pos;
 	}
+
+	public void SetSunPosition(Vector3 pos)
+	{
+		_sunBase.position = pos;
+	}
 }
