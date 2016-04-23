@@ -25,6 +25,8 @@ public class Movement : Util.Singleton<Movement> {
 		axis.x = Input.GetAxis ("Horizontal");
 		axis.y = Input.GetAxis ("Vertical");
 
+		if (GameManager.Instance.CurrentGameState != GameManager.GameState.Ingame)
+			return;
 
 		Vector2 vel = rb.velocity;
 
