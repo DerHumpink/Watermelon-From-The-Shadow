@@ -115,6 +115,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f20b5e9f27448278bd9a6d509adf58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverMusic: {fileID: 8300000, guid: 28162fa537509464cbc4e58ca0ea15c0, type: 3}
+  dieSound: {fileID: 8300000, guid: 8b9bf8a12459c4ff4911adc86ff521e4, type: 3}
+  gameMusic: {fileID: 8300000, guid: 4be344689ee28460c9ebcfc290bba9f1, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
