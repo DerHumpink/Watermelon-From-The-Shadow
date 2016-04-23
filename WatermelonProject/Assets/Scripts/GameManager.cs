@@ -18,11 +18,17 @@ public class GameManager : Singleton<GameManager>
 	{
 		TitleScreen,
 		Ingame,
-		PlayerDead
+		PlayerDead,
+		Won
 	}
 
 	public void Win() {
-		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCount);
+		if (SceneManager.GetActiveScene ().buildIndex + 1 == SceneManager.sceneCount && CurrentGameState != GameState.Won) {
+			CurrentGameState = GameState.Won;
+			AudioManager.Instance.Win ();
+		} else {
+			SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCount);
+		}
 	}
 
 	public void Die()
