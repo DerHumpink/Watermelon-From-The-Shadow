@@ -7,6 +7,7 @@ public class Goal : MonoBehaviour {
 	{
 		if (col.CompareTag ("Player")) {
 			//win here, load next level
+			GameManager.Instance.Win();
 		}
 	}
 }
