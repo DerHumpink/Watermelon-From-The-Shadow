@@ -16,7 +16,7 @@ public class Movement : Util.Singleton<Movement> {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Vector2 axis;
 		axis.x = Input.GetAxis ("Horizontal");
 		axis.y = Input.GetAxis ("Vertical");
