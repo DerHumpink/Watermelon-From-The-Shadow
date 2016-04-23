@@ -5,6 +5,8 @@ public class Movement : Util.Singleton<Movement> {
 
 	const float MIN_AXIS = 0.1f;
 
+	public Animator anim;
+
 	public float speed = 2f;
 	public Vector2 jumpSpeed;
 
@@ -38,7 +40,7 @@ public class Movement : Util.Singleton<Movement> {
 
 		if (!jumping||vel.x<2)
 		{
-			if (Mathf.Abs(axis.x) > 0.1f)
+			if (Mathf.Abs(axis.x) > MIN_AXIS)
 			{
 				if (Mathf.Sign(axis.x) != Mathf.Sign(vel.x))
 				{
@@ -47,6 +49,14 @@ public class Movement : Util.Singleton<Movement> {
 				else
 				{
 					vel.x = speed * axis.x;
+				}
+
+
+				Transform visualChild = transform.GetChild (0);
+
+				if (Mathf.Sign(visualChild.localScale.x) != Mathf.Sign(vel.x))
+				{
+					visualChild.localScale = new Vector3 (Mathf.Sign (vel.x), 1f, 1f);
 				}
 			}
 			else
@@ -57,6 +67,9 @@ public class Movement : Util.Singleton<Movement> {
 
 		rb.velocity = vel;
 		lastAxis = axis;
+
+		anim.SetBool ("jumping", jumping);
+		anim.SetFloat ("speedFactor", Mathf.Abs(axis.x));
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {
