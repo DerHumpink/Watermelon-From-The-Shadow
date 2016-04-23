@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Movement : Util.Singleton<Movement> {
 
+	const float MIN_AXIS = 0.1f;
+
 	public float speed = 2f;
 	public Vector2 jumpSpeed;
 
@@ -10,13 +12,15 @@ public class Movement : Util.Singleton<Movement> {
 	Rigidbody2D rb;
 	bool lookingRight = true;
 
+	Vector2 lastAxis;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		Vector2 axis;
 		axis.x = Input.GetAxis ("Horizontal");
 		axis.y = Input.GetAxis ("Vertical");
@@ -24,7 +28,7 @@ public class Movement : Util.Singleton<Movement> {
 
 		Vector2 vel = rb.velocity;
 
-		if (axis.y > 0.1f && !jumping)
+		if (axis.y > MIN_AXIS && lastAxis.y <= MIN_AXIS && !jumping)
 		{
 			vel.y = jumpSpeed.y;
 			vel.x = (lookingRight ? 1f : -1f) * jumpSpeed.x;
@@ -42,6 +46,7 @@ public class Movement : Util.Singleton<Movement> {
 		}
 
 		rb.velocity = vel;
+		lastAxis = axis;
 	}
 
 	void OnCollisionEnter2D (Collision2D col) {
