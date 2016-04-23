@@ -9,6 +9,10 @@ public class SunMovement : MonoBehaviour {
 	public float movementFactor = 1f;
 	public float direction = 1f;
 
+	[Header("Light settings")]
+	public float minLightAngle = -60f;
+	public float maxLightAngle = 60f;
+
 	Transform player;
 	Vector3 lastPlayerPosition = Vector3.zero;
 	Vector3 currentWantedPosition;
@@ -45,12 +49,14 @@ public class SunMovement : MonoBehaviour {
 		Vector3 aux = transform.position;
 		float movementWidth = endPoint.x - startPoint.x;
 		float xFactor = (currentWantedPosition.x - startPoint.x) / movementWidth;
-		aux.x = Mathf.Lerp(startPoint.x, endPoint.x, Easing.Quadratic.InOut (xFactor));
-		aux.y = Mathf.Lerp(startPoint.y, endPoint.y, Easing.Quadratic.InOut (xFactor)) +
-			Mathf.Lerp(curveHeight, 0f, Easing.Quadratic.In(Mathf.Abs((xFactor - 0.5f)*2f)));
+		aux.x = Mathf.Lerp(startPoint.x, endPoint.x, Easing.Quadratic.InOut(xFactor)); // Easing.Quadratic.InOut
+		aux.y = Mathf.Lerp(startPoint.y, endPoint.y, Easing.Quadratic.InOut(xFactor)) + // Easing.Quadratic.InOut
+			Mathf.Lerp(curveHeight, 0f, Easing.Quadratic.In(Mathf.Abs((xFactor - 0.5f)*2f))); // Easing.Quadratic.In
+
+		float angle = Mathf.Lerp (minLightAngle, maxLightAngle, xFactor);
+		// Set the angle here
 
 		transform.position = aux;
-
 		lastPlayerPosition = player.position;
 	}
 
