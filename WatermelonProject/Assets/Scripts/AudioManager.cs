@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour {
 
@@ -24,7 +25,7 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	public void OnLevelWasLoaded() {
-		if (source.isPlaying && source.clip != gameMusic) {
+		if (SceneManager.GetActiveScene().buildIndex != SceneManager.sceneCountInBuildSettings - 1 && source.isPlaying && source.clip != gameMusic) {
 			source.Stop ();
 			source.clip = gameMusic;
 			source.Play ();

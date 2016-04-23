@@ -6,12 +6,13 @@ public class GameManager : Singleton<GameManager>
 {
 	bool playerIsSafe = false;
 
-	public GameState CurrentGameState { get; private set; }
+	public static GameState CurrentGameState { get; private set; }
 
 	protected override void Awake () {
 		base.Awake();
 		//Directly jump to the
-		CurrentGameState=GameState.Ingame;
+
+		if (CurrentGameState != GameState.PlayerDead) CurrentGameState=GameState.Ingame;
 	}
 
 	public enum GameState
@@ -23,18 +24,23 @@ public class GameManager : Singleton<GameManager>
 	}
 
 	public void Win() {
-		if (SceneManager.GetActiveScene ().buildIndex + 1 == SceneManager.sceneCount && CurrentGameState != GameState.Won) {
+				if (SceneManager.GetActiveScene ().buildIndex + 2 == SceneManager.sceneCountInBuildSettings && CurrentGameState != GameState.Won) {
 			CurrentGameState = GameState.Won;
 			AudioManager.Instance.Win ();
 		} else {
-			SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCount);
+			SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCountInBuildSettings);
 		}
 	}
 
+	public static int lastScene = 0;
 	public void Die()
 	{
-		CurrentGameState=GameState.PlayerDead;
-		AudioManager.Instance.Die();
+		if (!playerIsSafe) {
+			CurrentGameState = GameState.PlayerDead;
+			lastScene = SceneManager.GetActiveScene ().buildIndex;
+			SceneManager.LoadScene (SceneManager.sceneCountInBuildSettings - 1);
+			AudioManager.Instance.Die ();
+		}
 	}
 
 	public void SetPlayerSafe(bool safe) {
@@ -42,9 +48,8 @@ public class GameManager : Singleton<GameManager>
 	}
 
 	void Update() {
-
 		if (CurrentGameState == GameState.PlayerDead && Input.GetKeyDown(KeyCode.R)) {
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+			SceneManager.LoadScene (lastScene);
 			CurrentGameState=GameState.Ingame;
 		}
 
