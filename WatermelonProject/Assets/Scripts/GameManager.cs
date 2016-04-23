@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using Util;
 
@@ -17,5 +18,9 @@ public class GameManager : Singleton<GameManager>
 		TitleScreen,
 		Ingame,
 		PlayerDead
+	}
+
+	public void Win() {
+		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCount);
 	}
 }
