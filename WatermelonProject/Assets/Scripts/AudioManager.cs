@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour {
 	public AudioClip gameOverMusic;
 	public AudioClip dieSound;
 	public AudioClip gameMusic;
+	public AudioClip sucessSound;
+	public AudioClip sucessMusic;
 
 	AudioSource source;
 
@@ -34,6 +36,13 @@ public class AudioManager : MonoBehaviour {
 		source.Stop ();
 		source.PlayOneShot (dieSound);
 		source.clip = gameOverMusic;
+		source.Play ();
+	}
+
+	public void Win() {
+		source.Stop ();
+		source.PlayOneShot (sucessSound);
+		source.clip = sucessMusic;
 		source.Play ();
 	}
 }
