@@ -53,8 +53,8 @@ public class SunMovement : MonoBehaviour {
 		aux.y = Mathf.Lerp(startPoint.y, endPoint.y, Easing.Quadratic.InOut(xFactor)) + // Easing.Quadratic.InOut
 			Mathf.Lerp(curveHeight, 0f, Easing.Quadratic.In(Mathf.Abs((xFactor - 0.5f)*2f))); // Easing.Quadratic.In
 
-		float angle = Mathf.Lerp (minLightAngle, maxLightAngle, xFactor);
-		// Set the angle here
+		float angle = Mathf.Lerp (maxLightAngle, minLightAngle, xFactor);
+		ShadowController.Instance.SetSunDirection (angle);
 
 		transform.position = aux;
 		lastPlayerPosition = player.position;
