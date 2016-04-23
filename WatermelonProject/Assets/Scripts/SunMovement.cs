@@ -60,7 +60,7 @@ public class SunMovement : MonoBehaviour {
 		lastPlayerPosition = player.position;
 	}
 
-	void OnDrawGizmos() {
+	void OnDrawGizmosSelected() {
 		Gizmos.color = Color.green;
 		Gizmos.DrawWireSphere (startPoint, 0.7f);
 		Gizmos.color = Color.red;
