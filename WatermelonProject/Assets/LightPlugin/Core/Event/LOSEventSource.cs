@@ -47,7 +47,7 @@ namespace LOS.Event {
 		}
 
 		public void Process (List<LOSEventTrigger> triggers) {
-			RaycastHit hit;
+			RaycastHit2D hit;
 
 			List<LOSEventTrigger> triggeredTriggers = new List<LOSEventTrigger>();
 			List<LOSEventTrigger> notTriggeredTriggers = new List<LOSEventTrigger>();
@@ -72,13 +72,28 @@ namespace LOS.Event {
 
 					LayerMask mask = 1 << trigger.gameObject.layer | obstacleLayers;
 
-					if (Physics.Raycast(_trans.position, direction, out hit, distance, mask)) {
+					/*if (Physics2D.Raycast(_trans.position, direction, out hit, distance, mask)) {
 						GameObject hitGo = hit.collider.gameObject;
 
 						if (hitGo == trigger.gameObject) {
 							triggered = true;
 						}
 						else if (hitGo.layer == trigger.gameObject.layer) {
+							LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
+							if (triggerToAdd == null) {
+								triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();
+							}
+							triggeredTriggers.Add(triggerToAdd);
+						}
+					}*/
+
+					hit = Physics2D.Raycast(_trans.position, direction, distance, mask);
+					if (hit.collider!=null) { 
+						GameObject hitGo = hit.collider.gameObject;
+
+						if (hitGo == trigger.gameObject) {
+							triggered = true;
+						} else if (hitGo.layer == trigger.gameObject.layer) {
 							LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
 							if (triggerToAdd == null) {
 								triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();

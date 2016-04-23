@@ -1,4 +1,5 @@
 ﻿using UnityEngine.SceneManagement;
+using UnityEngine;
 using Util;
 
 public class GameManager : Singleton<GameManager>
@@ -24,7 +25,20 @@ public class GameManager : Singleton<GameManager>
 		SceneManager.LoadScene ((SceneManager.GetActiveScene ().buildIndex + 1)%SceneManager.sceneCount);
 	}
 
+	public void Die()
+	{
+		CurrentGameState=GameState.PlayerDead;
+		//AudioManager.Instance.
+	}
+
 	public void SetPlayerSafe(bool safe) {
 		playerIsSafe = safe;
+	}
+
+	void Update() {
+
+		if (CurrentGameState == GameState.PlayerDead && Input.GetButtonDown ("fire1")) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+		}
 	}
 }

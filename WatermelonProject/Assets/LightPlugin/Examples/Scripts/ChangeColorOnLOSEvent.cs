@@ -17,7 +17,7 @@ public class ChangeColorOnLOSEvent : MonoBehaviour {
 		trigger.OnNotTriggered += OnNotLit;
 		trigger.OnTriggered += OnLit;
 
-		OnNotLit();
+		//OnNotLit();
 	}
 
 	private void OnNotLit () {
