@@ -47,5 +47,10 @@ public class GameManager : Singleton<GameManager>
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			CurrentGameState=GameState.Ingame;
 		}
+
+		if (CurrentGameState == GameState.Won && Input.GetKeyDown(KeyCode.R)) {
+			SceneManager.LoadScene (0);
+			CurrentGameState=GameState.Ingame;
+		}
 	}
 }
